@@ -96,7 +96,7 @@ class _Practical3DWidgetState extends State<Practical3DWidget>
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withValues(alpha: 0.3),
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(20),
               ),
@@ -164,9 +164,9 @@ class _Practical3DWidgetState extends State<Practical3DWidget>
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.1),
+            color: Colors.white.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white.withOpacity(0.2)),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -250,12 +250,12 @@ class Cube3DPainter extends CustomPainter {
     ];
 
     final faceColors = [
-      Colors.red.withOpacity(0.7),
-      Colors.green.withOpacity(0.7),
-      Colors.blue.withOpacity(0.7),
-      Colors.yellow.withOpacity(0.7),
-      Colors.purple.withOpacity(0.7),
-      Colors.cyan.withOpacity(0.7),
+      Colors.red.withValues(alpha: 0.7),
+      Colors.green.withValues(alpha: 0.7),
+      Colors.blue.withValues(alpha: 0.7),
+      Colors.yellow.withValues(alpha: 0.7),
+      Colors.purple.withValues(alpha: 0.7),
+      Colors.cyan.withValues(alpha: 0.7),
     ];
 
     // Z-sortingのために面の中心のZ座標を計算
@@ -299,7 +299,7 @@ class Cube3DPainter extends CustomPainter {
       // 面の境界線を描画
       final strokePaint =
           Paint()
-            ..color = Colors.white.withOpacity(0.3)
+            ..color = Colors.white.withValues(alpha: 0.3)
             ..style = PaintingStyle.stroke
             ..strokeWidth = 1.5;
       canvas.drawPath(path, strokePaint);

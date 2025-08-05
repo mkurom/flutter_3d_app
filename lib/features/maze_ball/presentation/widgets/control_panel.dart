@@ -22,13 +22,13 @@ class ControlPanel extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: GameConstants.panelBackgroundColor.withOpacity(
-          GameConstants.panelOpacity,
+        color: GameConstants.panelBackgroundColor.withValues(
+          alpha: GameConstants.panelOpacity,
         ),
         borderRadius: BorderRadius.circular(15),
         border: Border.all(
-          color: GameConstants.panelBorderColor.withOpacity(
-            GameConstants.panelBorderOpacity,
+          color: GameConstants.panelBorderColor.withValues(
+            alpha: GameConstants.panelBorderOpacity,
           ),
         ),
       ),
@@ -84,14 +84,14 @@ class ControlPanel extends StatelessWidget {
           decoration: BoxDecoration(
             color:
                 onPressed != null
-                    ? Colors.white.withOpacity(0.1)
-                    : Colors.grey.withOpacity(0.1),
+                    ? Colors.white.withValues(alpha: 0.1)
+                    : Colors.grey.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color:
                   onPressed != null
-                      ? Colors.white.withOpacity(0.2)
-                      : Colors.grey.withOpacity(0.2),
+                      ? Colors.white.withValues(alpha: 0.2)
+                      : Colors.grey.withValues(alpha: 0.2),
             ),
           ),
           child: Row(

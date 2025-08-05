@@ -54,9 +54,9 @@ class _ModelViewerDemoState extends State<ModelViewerDemo> {
             height: 60,
             margin: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: Colors.white.withOpacity(0.1)),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
             ),
             child: Row(
               children:
@@ -70,7 +70,7 @@ class _ModelViewerDemoState extends State<ModelViewerDemo> {
                           decoration: BoxDecoration(
                             color:
                                 isSelected
-                                    ? Colors.blue.withOpacity(0.3)
+                                    ? Colors.blue.withValues(alpha: 0.3)
                                     : Colors.transparent,
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -103,7 +103,7 @@ class _ModelViewerDemoState extends State<ModelViewerDemo> {
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withValues(alpha: 0.3),
                     blurRadius: 10,
                     offset: const Offset(0, 5),
                   ),
@@ -180,9 +180,9 @@ class _ModelViewerDemoState extends State<ModelViewerDemo> {
             margin: const EdgeInsets.all(16),
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.4),
+              color: Colors.black.withValues(alpha: 0.4),
               borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: Colors.white.withOpacity(0.1)),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,14 +237,14 @@ class _ModelViewerDemoState extends State<ModelViewerDemo> {
         decoration: BoxDecoration(
           color:
               isActive
-                  ? Colors.blue.withOpacity(0.3)
-                  : Colors.black.withOpacity(0.5),
+                  ? Colors.blue.withValues(alpha: 0.3)
+                  : Colors.black.withValues(alpha: 0.5),
           borderRadius: BorderRadius.circular(22),
           border: Border.all(
             color:
                 isActive
-                    ? Colors.blue.withOpacity(0.5)
-                    : Colors.white.withOpacity(0.2),
+                    ? Colors.blue.withValues(alpha: 0.5)
+                    : Colors.white.withValues(alpha: 0.2),
           ),
         ),
         child: Icon(

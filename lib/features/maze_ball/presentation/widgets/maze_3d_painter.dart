@@ -150,7 +150,7 @@ class Maze3DPainter extends CustomPainter {
 
       final strokePaint =
           Paint()
-            ..color = GameConstants.wallStrokeColor.withOpacity(0.9)
+            ..color = GameConstants.wallStrokeColor.withValues(alpha: 0.9)
             ..style = PaintingStyle.stroke
             ..strokeWidth = GameConstants.wallStrokeWidth;
       canvas.drawPath(path, strokePaint);
@@ -189,14 +189,14 @@ class Maze3DPainter extends CustomPainter {
 
     final paint =
         Paint()
-          ..color = GameConstants.floorColor.withOpacity(0.8)
+          ..color = GameConstants.floorColor.withValues(alpha: 0.8)
           ..style = PaintingStyle.fill;
     canvas.drawPath(path, paint);
 
     // 床の輪郭線も追加
     final strokePaint =
         Paint()
-          ..color = GameConstants.floorStrokeColor.withOpacity(0.6)
+          ..color = GameConstants.floorStrokeColor.withValues(alpha: 0.6)
           ..style = PaintingStyle.stroke
           ..strokeWidth = GameConstants.floorStrokeWidth;
     canvas.drawPath(path, strokePaint);
@@ -234,7 +234,7 @@ class Maze3DPainter extends CustomPainter {
 
     final paint =
         Paint()
-          ..color = GameConstants.goalColor.withOpacity(0.8)
+          ..color = GameConstants.goalColor.withValues(alpha: 0.8)
           ..style = PaintingStyle.fill;
     canvas.drawPath(path, paint);
 
@@ -265,7 +265,7 @@ class Maze3DPainter extends CustomPainter {
     // ボールの影
     final shadowPaint =
         Paint()
-          ..color = GameConstants.ballShadowColor.withOpacity(0.3)
+          ..color = GameConstants.ballShadowColor.withValues(alpha: 0.3)
           ..style = PaintingStyle.fill;
     canvas.drawCircle(
       Offset(projected.dx + 3, projected.dy + 3),
@@ -286,7 +286,7 @@ class Maze3DPainter extends CustomPainter {
     // ボールのハイライト
     final highlightPaint =
         Paint()
-          ..color = GameConstants.ballHighlightColor.withOpacity(0.6)
+          ..color = GameConstants.ballHighlightColor.withValues(alpha: 0.6)
           ..style = PaintingStyle.fill;
     canvas.drawCircle(
       Offset(projected.dx - ballRadius * 0.3, projected.dy - ballRadius * 0.3),
@@ -298,7 +298,7 @@ class Maze3DPainter extends CustomPainter {
   void _drawVictoryEffect(Canvas canvas, Size size) {
     final paint =
         Paint()
-          ..color = Colors.yellow.withOpacity(0.1)
+          ..color = Colors.yellow.withValues(alpha: 0.1)
           ..style = PaintingStyle.fill;
 
     for (int i = 0; i < 20; i++) {
