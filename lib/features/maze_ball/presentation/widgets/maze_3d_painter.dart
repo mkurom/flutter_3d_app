@@ -1,4 +1,7 @@
-part of 'maze_ball_game.dart';
+import 'dart:math' as math;
+import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math.dart' as vm;
+import '../../../../shared/constants/game_constants.dart';
 
 /// 3D迷路を描画するCustomPainter
 class Maze3DPainter extends CustomPainter {

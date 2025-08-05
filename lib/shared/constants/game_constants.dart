@@ -1,4 +1,5 @@
-part of 'maze_ball_game.dart';
+import 'dart:math' as math;
+import 'package:flutter/material.dart';
 
 /// ゲームの設定とコンスタント
 class GameConstants {
