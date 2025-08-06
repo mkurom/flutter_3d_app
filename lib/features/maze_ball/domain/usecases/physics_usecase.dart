@@ -1,8 +1,8 @@
 import 'dart:math' as math;
 import 'package:vector_math/vector_math.dart' as vm;
-import '../../../../shared/constants/game_constants.dart';
-import '../entities/ball.dart';
-import '../entities/maze.dart';
+import 'package:flutter_3d_app/shared/constants/game_constants.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/entities/ball.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/entities/maze.dart';
 
 /// 物理演算ユースケース
 class PhysicsUseCase {

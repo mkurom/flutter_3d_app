@@ -30,7 +30,7 @@ void main() {
     group('initializeGame', () {
       test('should initialize game with correct initial state', () async {
         // Arrange
-        final testMaze = Maze(
+        final testMaze = const Maze(
           grid: [
             [1, 0],
             [0, 2],
@@ -68,7 +68,7 @@ void main() {
           velocity: vm.Vector2.zero(),
           radius: GameConstants.ballRadius,
         );
-        final maze = Maze(
+        final maze = const Maze(
           grid: [
             [0],
           ],
@@ -122,7 +122,7 @@ void main() {
           velocity: vm.Vector2.zero(),
           radius: GameConstants.ballRadius,
         );
-        final maze = Maze(
+        final maze = const Maze(
           grid: [
             [2],
           ],
@@ -168,7 +168,7 @@ void main() {
             velocity: vm.Vector2.zero(),
             radius: GameConstants.ballRadius,
           ),
-          maze: Maze(
+          maze: const Maze(
             grid: [
               [0],
             ],
@@ -202,7 +202,7 @@ void main() {
             velocity: vm.Vector2.zero(),
             radius: GameConstants.ballRadius,
           ),
-          maze: Maze(
+          maze: const Maze(
             grid: [
               [0],
             ],
@@ -216,7 +216,7 @@ void main() {
           zoomLevel: 1.5,
         );
 
-        final nextLevelMaze = Maze(
+        final nextLevelMaze = const Maze(
           grid: [
             [1, 0],
             [0, 2],
@@ -256,7 +256,7 @@ void main() {
             velocity: vm.Vector2.zero(),
             radius: GameConstants.ballRadius,
           ),
-          maze: Maze(
+          maze: const Maze(
             grid: [
               [0],
             ],
@@ -270,7 +270,7 @@ void main() {
           zoomLevel: 1.0,
         );
 
-        final nextLevelMaze = Maze(
+        final nextLevelMaze = const Maze(
           grid: [
             [0],
           ],
@@ -292,7 +292,7 @@ void main() {
     group('resetGame', () {
       test('should reset game state and initialize new game', () async {
         // Arrange
-        final testMaze = Maze(
+        final testMaze = const Maze(
           grid: [
             [0],
           ],
@@ -328,7 +328,7 @@ void main() {
             velocity: vm.Vector2.zero(),
             radius: GameConstants.ballRadius,
           ),
-          maze: Maze(
+          maze: const Maze(
             grid: [
               [0],
             ],
@@ -357,7 +357,7 @@ void main() {
             velocity: vm.Vector2.zero(),
             radius: GameConstants.ballRadius,
           ),
-          maze: Maze(
+          maze: const Maze(
             grid: [
               [0],
             ],
@@ -386,7 +386,7 @@ void main() {
             velocity: vm.Vector2.zero(),
             radius: GameConstants.ballRadius,
           ),
-          maze: Maze(
+          maze: const Maze(
             grid: [
               [0],
             ],
@@ -417,7 +417,7 @@ void main() {
             velocity: vm.Vector2.zero(),
             radius: GameConstants.ballRadius,
           ),
-          maze: Maze(
+          maze: const Maze(
             grid: [
               [0],
             ],
@@ -447,7 +447,7 @@ void main() {
       test('should return best time for level', () async {
         // Arrange
         const level = 1;
-        final expectedTime = Duration(seconds: 30);
+        final expectedTime = const Duration(seconds: 30);
         when(
           mockGameRepository.getBestTime(level),
         ).thenAnswer((_) async => expectedTime);

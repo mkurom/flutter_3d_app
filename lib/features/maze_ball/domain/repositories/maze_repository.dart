@@ -1,4 +1,4 @@
-import '../entities/maze.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/entities/maze.dart';
 
 /// 迷路データの抽象リポジトリ
 abstract class MazeRepository {

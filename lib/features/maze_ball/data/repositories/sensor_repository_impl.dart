@@ -1,16 +1,15 @@
 import 'dart:async';
 import 'package:vector_math/vector_math.dart' as vm;
-import '../../domain/repositories/sensor_repository.dart';
-import '../datasources/sensor_datasource.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/repositories/sensor_repository.dart';
+import 'package:flutter_3d_app/features/maze_ball/data/datasources/sensor_datasource.dart';
 
 /// センサーリポジトリの実装
 class SensorRepositoryImpl implements SensorRepository {
+  SensorRepositoryImpl({required SensorDataSource sensorDataSource})
+    : _sensorDataSource = sensorDataSource;
   final SensorDataSource _sensorDataSource;
   StreamSubscription<vm.Vector2>? _accelerometerSubscription;
   StreamController<vm.Vector2>? _streamController;
-
-  SensorRepositoryImpl({required SensorDataSource sensorDataSource})
-    : _sensorDataSource = sensorDataSource;
 
   @override
   Stream<vm.Vector2> startAccelerometerStream() {

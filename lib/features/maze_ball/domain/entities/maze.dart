@@ -1,12 +1,11 @@
-import '../../../../shared/constants/game_constants.dart';
+import 'package:flutter_3d_app/shared/constants/game_constants.dart';
 
 /// 迷路エンティティ
 class Maze {
+  const Maze({required this.grid, required this.width, required this.height});
   final List<List<int>> grid;
   final int width;
   final int height;
-
-  const Maze({required this.grid, required this.width, required this.height});
 
   /// 指定位置のセルタイプを取得
   MazeCellType getCellType(int x, int y) {

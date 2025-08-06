@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math.dart' as vm;
-import '../../../../shared/constants/game_constants.dart';
-import 'maze_3d_painter.dart';
+import 'package:flutter_3d_app/shared/constants/game_constants.dart';
+import 'package:flutter_3d_app/features/maze_ball/presentation/widgets/maze_3d_painter.dart';
 
 /// 3D迷路ビューウィジェット
 class Maze3DView extends StatelessWidget {
-  final List<List<int>> maze;
-  final vm.Vector2 ballPosition;
-  final vm.Vector2 tiltForce;
-  final bool gameWon;
-  final double zoomLevel;
-  final Function(double) onZoomChanged;
-
   const Maze3DView({
     super.key,
     required this.maze,
@@ -21,6 +14,12 @@ class Maze3DView extends StatelessWidget {
     required this.zoomLevel,
     required this.onZoomChanged,
   });
+  final List<List<int>> maze;
+  final vm.Vector2 ballPosition;
+  final vm.Vector2 tiltForce;
+  final bool gameWon;
+  final double zoomLevel;
+  final Function(double) onZoomChanged;
 
   @override
   Widget build(BuildContext context) {

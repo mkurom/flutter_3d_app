@@ -1,16 +1,10 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math.dart' as vm;
-import '../../../../shared/constants/game_constants.dart';
+import 'package:flutter_3d_app/shared/constants/game_constants.dart';
 
 /// 3D迷路を描画するCustomPainter
 class Maze3DPainter extends CustomPainter {
-  final List<List<int>> maze;
-  final vm.Vector2 ballPosition;
-  final vm.Vector2 tiltForce;
-  final bool gameWon;
-  final double zoomLevel;
-
   Maze3DPainter({
     required this.maze,
     required this.ballPosition,
@@ -18,6 +12,11 @@ class Maze3DPainter extends CustomPainter {
     required this.gameWon,
     this.zoomLevel = 1.0,
   });
+  final List<List<int>> maze;
+  final vm.Vector2 ballPosition;
+  final vm.Vector2 tiltForce;
+  final bool gameWon;
+  final double zoomLevel;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -133,7 +132,7 @@ class Maze3DPainter extends CustomPainter {
         // 上面：明るいグラデーション
         paint =
             Paint()
-              ..shader = LinearGradient(
+              ..shader = const LinearGradient(
                 colors: GameConstants.wallGradientColors,
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -276,7 +275,7 @@ class Maze3DPainter extends CustomPainter {
     // ボール本体
     final ballPaint =
         Paint()
-          ..shader = RadialGradient(
+          ..shader = const RadialGradient(
             colors: GameConstants.ballColors,
           ).createShader(
             Rect.fromCircle(center: projected, radius: ballRadius),

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../domain/entities/game_state.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/entities/game_state.dart';
 
 /// ローカルストレージデータソース
 class LocalStorageDataSource {

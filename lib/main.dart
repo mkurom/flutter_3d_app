@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_3d_app/practical_3d_widget.dart';
 import 'package:flutter_3d_app/model_viewer_demo.dart';
-import 'core/di/injection_container.dart' as di;
-import 'features/maze_ball/presentation/pages/maze_ball_page.dart';
-import 'features/maze_ball/presentation/viewmodels/maze_ball_viewmodel.dart';
+import 'package:flutter_3d_app/features/maze_ball/presentation/pages/maze_ball_page.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await di.init();
-  runApp(const MyApp());
+void main() {
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -43,10 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _demos = [
     const Practical3DWidget(),
     const ModelViewerDemo(),
-    ChangeNotifierProvider<MazeBallViewModel>(
-      create: (_) => di.sl<MazeBallViewModel>(),
-      child: const MazeBallPage(),
-    ),
+    const MazeBallPage(),
   ];
 
   final List<String> _demoTitles = ['インタラクティブ立方体', '3Dモデルビューア', '迷路ボールゲーム'];

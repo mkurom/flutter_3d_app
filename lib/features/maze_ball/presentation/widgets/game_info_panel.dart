@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../shared/constants/game_constants.dart';
+import 'package:flutter_3d_app/shared/constants/game_constants.dart';
 
 /// ゲーム情報パネルウィジェット
 class GameInfoPanel extends StatelessWidget {
-  final int level;
-  final Duration? elapsedTime;
-  final double tiltForceLength;
-  final double zoomLevel;
-
   const GameInfoPanel({
     super.key,
     required this.level,
@@ -15,6 +10,10 @@ class GameInfoPanel extends StatelessWidget {
     required this.tiltForceLength,
     required this.zoomLevel,
   });
+  final int level;
+  final Duration? elapsedTime;
+  final double tiltForceLength;
+  final double zoomLevel;
 
   @override
   Widget build(BuildContext context) {

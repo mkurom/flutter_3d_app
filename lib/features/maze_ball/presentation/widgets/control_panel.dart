@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../shared/constants/game_constants.dart';
+import 'package:flutter_3d_app/shared/constants/game_constants.dart';
 
 /// コントロールパネルウィジェット
 class ControlPanel extends StatelessWidget {
-  final bool isGameWon;
-  final VoidCallback onReset;
-  final VoidCallback onZoomReset;
-  final VoidCallback? onNextLevel;
-
   const ControlPanel({
     super.key,
     required this.isGameWon,
@@ -15,6 +10,10 @@ class ControlPanel extends StatelessWidget {
     required this.onZoomReset,
     this.onNextLevel,
   });
+  final bool isGameWon;
+  final VoidCallback onReset;
+  final VoidCallback onZoomReset;
+  final VoidCallback? onNextLevel;
 
   @override
   Widget build(BuildContext context) {

@@ -1,17 +1,13 @@
 import 'package:vector_math/vector_math.dart' as vm;
-import '../../../../shared/constants/game_constants.dart';
-import '../entities/ball.dart';
-import '../entities/game_state.dart';
-import '../repositories/game_repository.dart';
-import '../repositories/maze_repository.dart';
-import 'physics_usecase.dart';
+import 'package:flutter_3d_app/shared/constants/game_constants.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/entities/ball.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/entities/game_state.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/repositories/game_repository.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/repositories/maze_repository.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/usecases/physics_usecase.dart';
 
 /// ゲームロジックユースケース
 class GameUseCase {
-  final MazeRepository _mazeRepository;
-  final GameRepository _gameRepository;
-  final PhysicsUseCase _physicsUseCase;
-
   GameUseCase({
     required MazeRepository mazeRepository,
     required GameRepository gameRepository,
@@ -19,6 +15,9 @@ class GameUseCase {
   }) : _mazeRepository = mazeRepository,
        _gameRepository = gameRepository,
        _physicsUseCase = physicsUseCase;
+  final MazeRepository _mazeRepository;
+  final GameRepository _gameRepository;
+  final PhysicsUseCase _physicsUseCase;
 
   /// ゲームを初期化
   Future<GameState> initializeGame() async {
@@ -115,6 +114,6 @@ class GameUseCase {
 
   /// 最高記録を取得
   Future<Duration?> getBestTime(int level) async {
-    return await _gameRepository.getBestTime(level);
+    return _gameRepository.getBestTime(level);
   }
 }

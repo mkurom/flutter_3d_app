@@ -1,6 +1,6 @@
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:vector_math/vector_math.dart' as vm;
-import '../../../../shared/constants/game_constants.dart';
+import 'package:flutter_3d_app/shared/constants/game_constants.dart';
 
 /// センサーデータソース
 class SensorDataSource {

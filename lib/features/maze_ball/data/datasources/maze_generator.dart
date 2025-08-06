@@ -1,6 +1,6 @@
 import 'dart:math' as math;
-import '../../../../shared/constants/game_constants.dart';
-import '../../domain/entities/maze.dart';
+import 'package:flutter_3d_app/shared/constants/game_constants.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/entities/maze.dart';
 
 /// 迷路生成データソース
 class MazeGenerator {

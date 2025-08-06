@@ -1,4 +1,4 @@
-import '../entities/game_state.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/entities/game_state.dart';
 
 /// ゲーム状態の抽象リポジトリ
 abstract class GameRepository {

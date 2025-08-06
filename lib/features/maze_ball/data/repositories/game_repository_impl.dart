@@ -1,13 +1,12 @@
-import '../../domain/entities/game_state.dart';
-import '../../domain/repositories/game_repository.dart';
-import '../datasources/local_storage_datasource.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/entities/game_state.dart';
+import 'package:flutter_3d_app/features/maze_ball/domain/repositories/game_repository.dart';
+import 'package:flutter_3d_app/features/maze_ball/data/datasources/local_storage_datasource.dart';
 
 /// ゲームリポジトリの実装
 class GameRepositoryImpl implements GameRepository {
-  final LocalStorageDataSource _localStorageDataSource;
-
   GameRepositoryImpl({required LocalStorageDataSource localStorageDataSource})
     : _localStorageDataSource = localStorageDataSource;
+  final LocalStorageDataSource _localStorageDataSource;
 
   @override
   Future<void> saveGameState(GameState gameState) async {
@@ -16,7 +15,7 @@ class GameRepositoryImpl implements GameRepository {
 
   @override
   Future<GameState?> loadGameState() async {
-    return await _localStorageDataSource.loadGameState();
+    return _localStorageDataSource.loadGameState();
   }
 
   @override
@@ -31,6 +30,6 @@ class GameRepositoryImpl implements GameRepository {
 
   @override
   Future<Duration?> getBestTime(int level) async {
-    return await _localStorageDataSource.getBestTime(level);
+    return _localStorageDataSource.getBestTime(level);
   }
 }
