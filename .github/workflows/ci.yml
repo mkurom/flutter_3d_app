@@ -1,0 +1,209 @@
+name: CI/CD Pipeline
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    types: [ opened, synchronize, reopened ]
+  push:
+    branches: [ main, develop ]
+
+# Allow only one concurrent deployment per branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Job 1: Static Analysis & Code Metrics
+  analyze:
+    name: 📊 Static Analysis & Code Metrics
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+          cache: true
+
+      - name: 📦 Get Dependencies
+        run: flutter pub get
+
+      - name: 🔍 Verify Formatting
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: 🧹 Analyze Project
+        run: flutter analyze --fatal-infos
+
+      - name: 📈 Dart Code Linter Analysis
+        run: dart run dart_code_linter:metrics analyze lib --reporter=github
+
+      - name: 🔍 Check Unused Code
+        run: dart run dart_code_linter:metrics check-unused-code lib --reporter=github
+
+  # Job 2: Unit Tests
+  test:
+    name: 🧪 Unit Tests
+    runs-on: ubuntu-latest
+    needs: analyze
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+          cache: true
+
+      - name: 📦 Get Dependencies
+        run: flutter pub get
+
+      - name: 🏗️ Generate Mock Files
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: 🧪 Run Unit Tests
+        run: flutter test test/features/maze_ball/ --coverage --reporter expanded
+
+      - name: 📊 Generate Coverage Report
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lcov
+          genhtml coverage/lcov.info -o coverage/html
+
+      - name: 📤 Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+
+      - name: 💾 Archive Coverage Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage/
+
+  # Job 3: Integration Tests
+  integration-test:
+    name: 🔄 Integration Tests
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+          cache: true
+
+      - name: 📦 Get Dependencies
+        run: flutter pub get
+
+      - name: 🏗️ Generate Mock Files
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: 🔄 Run All Tests
+        run: flutter test --coverage --reporter expanded
+
+      - name: ✅ Test Summary
+        run: |
+          echo "## 🎉 Test Results Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| Component | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Static Analysis | ✅ Passed |" >> $GITHUB_STEP_SUMMARY
+          echo "| Unit Tests | ✅ Passed |" >> $GITHUB_STEP_SUMMARY
+          echo "| Integration Tests | ✅ Passed |" >> $GITHUB_STEP_SUMMARY
+          echo "| Code Metrics | ✅ Analyzed |" >> $GITHUB_STEP_SUMMARY
+
+  # Job 4: Build Check
+  build:
+    name: 🏗️ Build Check
+    runs-on: ubuntu-latest
+    needs: [analyze, test]
+    strategy:
+      matrix:
+        platform: [android, web]
+    
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+          cache: true
+
+      - name: 📦 Get Dependencies
+        run: flutter pub get
+
+      - name: 🏗️ Build for ${{ matrix.platform }}
+        run: |
+          if [ "${{ matrix.platform }}" == "android" ]; then
+            flutter build apk --debug
+          elif [ "${{ matrix.platform }}" == "web" ]; then
+            flutter build web
+          fi
+
+      - name: 📤 Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ matrix.platform }}
+          path: |
+            build/app/outputs/flutter-apk/*.apk
+            build/web/
+          retention-days: 7
+
+  # Job 5: Code Quality Gate
+  quality-gate:
+    name: 🚪 Quality Gate
+    runs-on: ubuntu-latest
+    needs: [analyze, test, integration-test, build]
+    if: always()
+    
+    steps:
+      - name: 📊 Quality Gate Check
+        run: |
+          echo "## 🚪 Quality Gate Results" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ needs.analyze.result }}" == "success" ]; then
+            echo "✅ **Static Analysis**: PASSED" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Static Analysis**: FAILED" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ needs.test.result }}" == "success" ]; then
+            echo "✅ **Unit Tests**: PASSED" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Unit Tests**: FAILED" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ needs.integration-test.result }}" == "success" ]; then
+            echo "✅ **Integration Tests**: PASSED" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Integration Tests**: FAILED" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ needs.build.result }}" == "success" ]; then
+            echo "✅ **Build Check**: PASSED" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Build Check**: FAILED" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # Fail the job if any dependency failed
+          if [ "${{ needs.analyze.result }}" != "success" ] || 
+             [ "${{ needs.test.result }}" != "success" ] || 
+             [ "${{ needs.integration-test.result }}" != "success" ] || 
+             [ "${{ needs.build.result }}" != "success" ]; then
+            echo "❌ **Quality Gate**: FAILED - Some checks did not pass"
+            exit 1
+          else
+            echo "✅ **Quality Gate**: PASSED - All checks successful!"
+          fi
