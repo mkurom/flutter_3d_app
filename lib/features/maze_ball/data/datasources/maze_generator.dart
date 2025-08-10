@@ -55,9 +55,14 @@ class MazeGenerator {
 
   /// レベルに応じた迷路を生成
   Maze generateMazeForLevel(int level) {
-    final baseWidth = GameConstants.mazeWidth + (level ~/ 3) * 2;
-    final baseHeight = GameConstants.mazeHeight + (level ~/ 3) * 2;
-    
+    var baseWidth = GameConstants.mazeWidth + (level ~/ 3) * 2;
+    var baseHeight = GameConstants.mazeHeight + (level ~/ 3) * 2;
+    // Enforce minimum and odd parity for proper cell carving and reachable goal.
+    if (baseWidth < 3) baseWidth = 3;
+    if (baseHeight < 3) baseHeight = 3;
+    if (baseWidth.isEven) baseWidth += 1;
+    if (baseHeight.isEven) baseHeight += 1;
+
     // Use DFS algorithm for higher levels for more complexity
     if (level >= 3) {
       return generateDFSMaze(baseWidth, baseHeight);
