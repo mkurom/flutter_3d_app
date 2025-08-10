@@ -12,7 +12,13 @@ class SensorRepositoryImpl implements SensorRepository {
   StreamController<vm.Vector2>? _streamController;
 
   @override
+  @override
   Stream<vm.Vector2> startAccelerometerStream() {
+    // Stop existing stream if running
+    if (_streamController != null) {
+      stopAccelerometerStream();
+    }
+
     _streamController = StreamController<vm.Vector2>.broadcast();
 
     _accelerometerSubscription = _sensorDataSource
