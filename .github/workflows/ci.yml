@@ -110,17 +110,15 @@ jobs:
         run: dart run build_runner build --delete-conflicting-outputs
 
       - name: 🔄 Run All Tests
+        id: run_all_tests
         run: flutter test --coverage --reporter expanded
 
       - name: ✅ Test Summary
         run: |
-          echo "## 🎉 Test Results Summary" >> $GITHUB_STEP_SUMMARY
-          echo "| Component | Status |" >> $GITHUB_STEP_SUMMARY
-          echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
-          echo "| Static Analysis | ✅ Passed |" >> $GITHUB_STEP_SUMMARY
-          echo "| Unit Tests | ✅ Passed |" >> $GITHUB_STEP_SUMMARY
-          echo "| Integration Tests | ✅ Passed |" >> $GITHUB_STEP_SUMMARY
-          echo "| Code Metrics | ✅ Analyzed |" >> $GITHUB_STEP_SUMMARY
+          echo "## 🎉 Integration Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Component           | Status                              |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------------------|-------------------------------------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Integration Tests   | ${{ steps.run_all_tests.outcome == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
 
   # Job 4: Build Check
   build:
