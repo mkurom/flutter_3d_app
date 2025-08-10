@@ -84,9 +84,16 @@ class MazeBallGameProvider extends AsyncNotifier<GameState> {
 
   void _startSensorListening() {
     _sensorSubscription?.cancel();
-    _sensorSubscription = _sensorRepository.startAccelerometerStream().listen(
-      _onTiltForceChanged,
-    );
+    _sensorSubscription = _sensorRepository
+        .startAccelerometerStream()
+        .listen(
+          _onTiltForceChanged,
+          onError: (Object error, StackTrace stackTrace) {
+            // Surface the error and stop updating to avoid inconsistent state
+            state = AsyncValue.error(error, stackTrace);
+          },
+          cancelOnError: true,
+        );
   }
 
   void _onTiltForceChanged(vm.Vector2 tiltForce) {
