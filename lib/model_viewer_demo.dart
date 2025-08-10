@@ -14,6 +14,10 @@ class _ModelViewerDemoState extends State<ModelViewerDemo> {
   bool _autoRotate = true;
   bool _enableAR = true;
 
+  static const String _fallbackModel = 'assets/models/default.glb';
+
+  bool _loadingError = false;
+
   final Map<String, Map<String, String>> _models = {
     'astronaut': {
       'name': '宇宙飛行士',
