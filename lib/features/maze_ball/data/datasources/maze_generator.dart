@@ -55,11 +55,13 @@ class MazeGenerator {
 
   /// レベルに応じた迷路を生成
   Maze generateMazeForLevel(int level) {
-    // レベルが上がるほど複雑になる（現在はシンプルな実装）
-    final baseWidth = GameConstants.mazeWidth;
-    final baseHeight = GameConstants.mazeHeight;
-
-    // 将来的にはレベルに応じてサイズや複雑さを変更可能
+    final baseWidth = GameConstants.mazeWidth + (level ~/ 3) * 2;
+    final baseHeight = GameConstants.mazeHeight + (level ~/ 3) * 2;
+    
+    // Use DFS algorithm for higher levels for more complexity
+    if (level >= 3) {
+      return generateDFSMaze(baseWidth, baseHeight);
+    }
     return generateSimpleMaze(baseWidth, baseHeight);
   }
 
