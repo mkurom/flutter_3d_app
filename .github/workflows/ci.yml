@@ -82,7 +82,7 @@ jobs:
           name: codecov-umbrella
 
       - name: 💾 Archive Coverage Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage/
@@ -151,7 +151,7 @@ jobs:
           fi
 
       - name: 📤 Upload Build Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-${{ matrix.platform }}
           path: |
