@@ -43,24 +43,29 @@ class GameUseCase {
   GameState updateGameState(GameState gameState, vm.Vector2 tiltForce) {
     if (gameState.isGameWon) return gameState;
 
-    // 物理演算でボールを更新
-    final updatedBall = _physicsUseCase.updateBallPhysics(
-      gameState.ball,
-      tiltForce,
-      gameState.maze,
-    );
+    try {
+      // 物理演算でボールを更新
+      final updatedBall = _physicsUseCase.updateBallPhysics(
+        gameState.ball,
+        tiltForce,
+        gameState.maze,
+      );
 
-    // ゴール判定
-    final isGoalReached = _physicsUseCase.checkGoalReached(
-      updatedBall,
-      gameState.maze,
-    );
+      // ゴール判定
+      final isGoalReached = _physicsUseCase.checkGoalReached(
+        updatedBall,
+        gameState.maze,
+      );
 
-    return gameState.copyWith(
-      ball: updatedBall,
-      tiltForce: tiltForce,
-      isGameWon: isGoalReached,
-    );
+      return gameState.copyWith(
+        ball: updatedBall,
+        tiltForce: tiltForce,
+        isGameWon: isGoalReached,
+      );
+    } catch (e) {
+      // Log error and return unchanged state
+      return gameState;
+    }
   }
 
   /// 次のレベルに進む
