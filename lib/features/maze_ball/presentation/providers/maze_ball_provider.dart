@@ -8,8 +8,26 @@ import 'package:flutter_3d_app/features/maze_ball/domain/usecases/game_usecase.d
 
 /// 迷路ボールゲームのグローバル状態管理（Provider）
 class MazeBallGameProvider extends AsyncNotifier<GameState> {
-  GameUseCase get _gameUseCase => ref.read(gameUseCaseProvider);
-  SensorRepository get _sensorRepository => ref.read(sensorRepositoryProvider);
+ class MazeBallGameProvider extends AsyncNotifier<GameState> {
+   late final GameUseCase _gameUseCase;
+   late final SensorRepository _sensorRepository;
+
+   StreamSubscription<vm.Vector2>? _sensorSubscription;
+   Timer? _gameTimer;
+
+   @override
+   Future<GameState> build() async {
+     _gameUseCase = ref.read(gameUseCaseProvider);
+     _sensorRepository = ref.read(sensorRepositoryProvider);
+     
+     // プロバイダーが破棄される際にリソースをクリーンアップ
+     ref.onDispose(() {
+       // cleanup logic...
+     });
+     // ...
+   }
+   // ...
+ }
 
   StreamSubscription<vm.Vector2>? _sensorSubscription;
   Timer? _gameTimer;
